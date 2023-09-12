@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+# Burada ilk olarak bu servisin çal??aca?? port bilgisini verdik. Daha sonra ise bu servisin d??ar?dan bak?ld???nda
+# ba?ka servislerden mesela config servisten bak?ld???nda merkezi bir configurasyon yap?laca?? ve oradaki
+# resources içerisindeki reservation-service.yml isimli dosyan?n ad?n?n buradaki isim olmas?n? ve bu sayede
+# a?a??da belirtilen config server üzerinden bu servis dinleme yaparak kendisine gelen configleri rahatl?kla alabilecek
+# ve uygulayabilecek. Ayn? zamanda application s?n?fm?zda @EnableDiscoveryClient anotasyonunu ekledik bu arada çünkü
+# bu serviste bir eureke client yani eureka server ile haberle?ecek bir servis.
+
+spring:
+  application:
+    name: reservation-service
+  config:
+    import: optional:configserver:http://localhost:8090
+

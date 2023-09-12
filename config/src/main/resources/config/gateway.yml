@@ -1,0 +1,31 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8097/eureka/
+
+# Yukarıda gateway servisine config tanımladık bu config gateway tarafından dinleniyor ve uygulanıyor. Yani
+# gateway kendi içindeki ayarlar dışından buradaki ayarlarıda artık alıp kendisine uyguluyor ama dosyanın adı
+# gateway servisinde application dosyasında belirttiğimiz application.name ile aynı olmalı.
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: reservationModule
+          uri: http://localhost:8081
+          predicates:
+            - Path=/reservation/**
+        - id: carModule
+          uri: http://localhost:8082
+          predicates:
+            - Path=/car/**
+
+# Yukarıda yazdığımız şey bizim dışarıdan gelen cilentten gelen istekler öncelikle bizim gateway yakalıyor daha sonra
+# ise bu gelen istekleri gateway diyorki benim isteğin gideceği yere bırakmam gerekiyor. İşte bizim burada tıpkı
+# react router yapısındaki gibi bir yönlendirme yapıyor gatewayimiz routes ile rotamızı belirttik. İlk rotamızın
+# benzersiz bir adı olmalı ki büyük ihtimalla daha sonra bu bir yerde kullanılacak. Sonrasında uri adında bir parametre
+# belirttik bu parametre bizim microservisinin adresi olacak son olarak bir durumu beyan etmemiz gerekiyor
+# predicates(beyan etmek) kullanarak bu ise bizim gatewaye gelen isteklere bak diyor eğer /reservation/herhangi birşey
+# ise o zaman uri de belirtilen url yönlendir bütün microservislerimizi bu şekilde tanımlarız ve daha sonra başka
+# microservislerde eklersek aynı bu şekilde tanımlama yaparız. Bu sayede gateway gelen istekleri hangi microservise
+# yönlendireceğini bilir.

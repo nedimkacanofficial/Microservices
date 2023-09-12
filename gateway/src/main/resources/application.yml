@@ -1,0 +1,17 @@
+server:
+  port: 8085
+
+# Burada ilk olarak bu servisin çal??aca?? portu verdik daha sonra ise servise bir isim verdik d??ar?dan bu isim görünecek
+# sonras?nda ise config import ile bizim config serverin urlini verdik ve ?unu demi? olduk sen git bu urlde bir
+# configrasyon server var burada configurasyon ayarlar?n? al gateway configurasyon ayarlrar?n? oradan alacak.
+# ayn? zamanda applicaton dosyas?na bu projenin eureka taraf?ndan ke?fedilmeye haz?r olmas?n? sa?layan anotasyondur.
+# Sonras?nda ise config servisine gidip burada resources içerisinde daha önceden olu?turdu?umuz config klasörüne
+# bir gateway.yml ad?nda dosya olu?turduk ub bizim a?a??da verdi?imiz isim ile ayn? olmal? ki e?le?ebilsin
+# ve art?k config üzerinden gateway configurasyonlar?n? yapabiliyor olacam. Orada öncelikle bizim eureka server?n
+# adresini verelim. nas?l ki configte eureka client adresini vermi?tik ayn?s?.
+
+spring:
+  application:
+    name: gateway
+  config:
+    import: optional:configserver:http://localhost:8090

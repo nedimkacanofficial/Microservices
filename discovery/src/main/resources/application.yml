@@ -1,0 +1,27 @@
+server:
+  port: 8097
+
+# Bizim microservislerimiz ve di?er client(istemci/istek g?nderen) olmas?n? discovery client olmas?n?
+# istedi?imiz servisler discovery servera kendisini kaydettirecek ama discovery server kendi kendini kendi
+# kendisine kaydettirmeyecek normalde a?a??daki register-with-eureka ve fetch registry default olarak true
+# geldi?i i?in bunlar? false ?ektik. Daha sonra ise application clas?m?za @EnableEurekaServer anotasyonunu ekledik.
+# bu anotasyon ise bu projenin eureka server olaca??n? belirten anotasyondur ve servere enable eder.
+
+# register-with-eureka: false: Bu ayar, uygulaman?z?n kendisini Eureka sunucusuna kaydetmeyece?ini belirtir.
+# Yani, uygulaman?z Eureka sunucusunda kendisini kaydetmez. Bu ayar? kullanmak, uygulaman?z?n bir hizmet sa?lay?c?s?
+# olarak Eureka'ya kaydolmas?n? engellemek i?in kullan??l? olabilir. ?zellikle geli?tirme veya test a?amas?nda bu
+# ayar? kullanmak, uygulaman?n Eureka sunucusunda kay?t yapmas?n? ?nlemek i?in faydal?d?r.
+
+# fetch-registry: false: Bu ayar, uygulaman?z?n Eureka sunucusundan hizmet kay?tlar?n? almayaca??n? belirtir.
+# Yani, uygulaman?z Eureka sunucusundan hizmet bilgilerini almayacakt?r. Bu ayar? kullanmak, uygulaman?z?n
+# Eureka sunucusundan hizmetleri dinlemeyi veya taramay? durdurmas?n? sa?lar. Bu, ?zellikle b?y?k mikro hizmet
+# uygulamalar?n?n baz? bile?enlerinin di?erlerini dinlemesini veya taramas?n? istemedi?i durumlarda faydal? olabilir.
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

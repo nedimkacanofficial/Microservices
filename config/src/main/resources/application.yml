@@ -1,0 +1,22 @@
+server:
+  port: 8090
+
+# Bu servisin d??ar?ya aç?lan kap?s? portu yukar?daki port dedik. Daha sonra ise a?a??da bizim bu uygulamam?z?n ismi
+# config olacak dedik. daha sonra ise profilin native olaca??n? yani herhangi bir ba?ka yerden configurasyon yap?lmad???nda
+# veya bir ba?ka yerden configurasyon belirtilmedi?inde do?al olarak native kullan?lacak. Son olarak ise eureka server?n
+# url bilgisini burada belirttik bu ayar bu servisin eureka server?n kurulu oldu?u servisi bulmas?n? sa?lamak ve eureka
+# servera kendisini kaydettirmesi için ayr?ca application dosyas?na iki anotasyon ekledik bunlardan ilki
+# @EnableConfigServer ikincisi ise @EnableDiscoveryClient bunlarda ilki uygulaman?n bir config server olarak davranmas?n?
+# sa?lar ikincisi ise uygulaman?n servis olarak ke?fedilmeye haz?r olmas?n? sa?lar.
+
+spring:
+  application:
+    name: config
+  profiles:
+    active:
+      - native
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8097/eureka/
